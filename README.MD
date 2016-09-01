@@ -10,3 +10,6 @@ within specified date range and exports to CSV
 
 * AD_AddProxyAddress.ps1 -
 Short script to add additional smtp: address to proxyAddress attribute 
+
+* AD-Enable_ClearEnd.ps1 -
+Short script to Enable AD User & Clear it's end date from txt file
