@@ -19,6 +19,6 @@ $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri ht
 Import-PSSession $Session
 $searchID = Read-Host -Prompt '** REQUIRED ** Enter the senders email address'
 $startDate = Read-Host -Prompt '** REQUIRED ** Enter Start Date mm/dd/yyyy hh:mm:ss'
-$endDate = Read-Host -Prompt '** REQUIRED ** Enter Start Date mm/dd/yyyy hh:mm:ss'
+$endDate = Read-Host -Prompt '** REQUIRED ** Enter End Date mm/dd/yyyy hh:mm:ss'
 Get-MessageTrace -SenderAddress $searchID -StartDate $startDate -EndDate $endDate | Export-Csv "c:\mailtrace-$searchID.csv"
 Remove-PSSession $Session
