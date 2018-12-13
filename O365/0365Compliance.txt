@@ -1,0 +1,23 @@
+////////////////////
+
+# Get login credentials 
+$UserCredential = Get-Credential 
+$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://ps.compliance.protection.outlook.com/powershell-liveid -Credential $UserCredential -Authentication Basic -AllowRedirection 
+Import-PSSession $Session -AllowClobber -DisableNameChecking 
+$Host.UI.RawUI.WindowTitle = $UserCredential.UserName + " (Office 365 Security & Compliance Center)"
+
+# search for the email in all mailboxes
+New-ComplianceSearch -Name "Your_SharedSpam" -ExchangeLocation all -ContentMatchQuery 'sent>=07/04/2018 AND sent<=07/04/2018 AND subject:"Someone shared a document with you."'
+Start-ComplianceSearch -Identity "Your_SharedSpam"
+
+# wait a minute and view the results
+Get-ComplianceSearch -Identity "Your_SharedSpam" | Format-List
+
+# delete the messages if the results look right
+New-ComplianceSearchAction -SearchName "Your_SharedSpam" -Purge -PurgeType SoftDelete
+
+# check when it is completed
+Get-ComplianceSearchAction -Identity "Your_SharedSpam_Purge"
+
+
+////////////////////////////
